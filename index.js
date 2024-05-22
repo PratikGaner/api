@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const app = express();
 const port = 3000; // Change to your desired port number
+const 
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -65,7 +66,7 @@ app.post('/webhook', async (req, res) => {
 async function createWorkItem(workItemData) {
   const organization = 'TICMPL';
   const project = 'Training';
-  const personalAccessToken = process.env.PAT;
+  const personalAccessToken = process.env.PAT_SECRET;
   const type = 'Bug';
 
   const url = `https://dev.azure.com/${organization}/${project}/_apis/wit/workitems/$${type}?api-version=6.0`;
