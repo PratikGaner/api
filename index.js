@@ -24,15 +24,27 @@ app.post('/webhook', async (req, res) => {
     console.log('Request Payload:', payload);
 
     // Validate payload
-    if (!payload.title || !payload.description) {
+    if (!payload.title || !payload.message) {
       console.log('Invalid payload:', payload);
       return res.status(400).send('Invalid payload');
     }
 
+    // Extract the message part from the payload
+    const message = payload.message;
+
+    // Extract text up to the 'Annotations' label
+    const annotationsLabelIndex = message.indexOf('Annotations:');
+    if (annotationsLabelIndex === -1) {
+      return res.status(400).send('Invalid payload: Annotations label not found');
+    }
+
+    const extractedMessage = message.substring(0, annotationsLabelIndex).trim();
+    console.log('Extracted Message:', extractedMessage);
+    
     // Define work item data
     const workItemData = {
       title: payload.title,
-      reproSteps: payload.description,
+      reproSteps: extractedMessage,
     };
 
     // Call Azure DevOps API to create a work item
