@@ -18,47 +18,46 @@ app.get('/webhook', async (req, res) => {
 // POST endpoint to handle webhook
 app.post('/webhook', async (req, res) => {
   console.log('POST request received');
-  res.status(200).send('OK')
-  // try {
-  //   // Log the incoming request body
-  //   const payload = req.body;
-  //   console.log('Request Payload:', payload);
+  try {
+    // Log the incoming request body
+    const payload = req.body;
+    console.log('Request Payload:', payload);
 
-  //   // Validate payload
-  //   if (!payload.title || !payload.description) {
-  //     console.log('Invalid payload:', payload);
-  //     return res.status(400).send('Invalid payload');
-  //   }
+    // Validate payload
+    if (!payload.title || !payload.description) {
+      console.log('Invalid payload:', payload);
+      return res.status(400).send('Invalid payload');
+    }
 
-  //   // Define work item data
-  //   const workItemData = {
-  //     title: payload.title,
-  //     reproSteps: payload.description,
-  //   };
+    // Define work item data
+    const workItemData = {
+      title: payload.title,
+      reproSteps: payload.description,
+    };
 
-  //   // Call Azure DevOps API to create a work item
-  //   const response = await createWorkItem(workItemData);
+    // Call Azure DevOps API to create a work item
+    const response = await createWorkItem(workItemData);
 
-  //   // Log the response from Azure DevOps API
-  //   console.log('Work item created:', response.data);
+    // Log the response from Azure DevOps API
+    console.log('Work item created:', response.data);
 
-  //   // Respond to the client
-  //   res.status(200).send('Work item created successfully');
-  // } catch (error) {
-  //   console.error('Error creating work item:', error);
-  //   if (error.response) {
-  //     console.error('Response data:', error.response.data);
-  //     console.error('Response status:', error.response.status);
-  //     console.error('Response headers:', error.response.headers);
-  //     res.status(error.response.status).send(error.response.data);
-  //   } else if (error.request) {
-  //     console.error('Request made but no response received:', error.request);
-  //     res.status(500).send('No response received from Azure DevOps');
-  //   } else {
-  //     console.error('Error setting up request:', error.message);
-  //     res.status(500).send('Error setting up request to Azure DevOps');
-  //   }
-  // }
+    // Respond to the client
+    res.status(200).send('Work item created successfully');
+  } catch (error) {
+    console.error('Error creating work item:', error);
+    if (error.response) {
+      console.error('Response data:', error.response.data);
+      console.error('Response status:', error.response.status);
+      console.error('Response headers:', error.response.headers);
+      res.status(error.response.status).send(error.response.data);
+    } else if (error.request) {
+      console.error('Request made but no response received:', error.request);
+      res.status(500).send('No response received from Azure DevOps');
+    } else {
+      console.error('Error setting up request:', error.message);
+      res.status(500).send('Error setting up request to Azure DevOps');
+    }
+  }
 });
 
 // Function to create a work item using Azure DevOps API
