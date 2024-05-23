@@ -31,7 +31,7 @@ app.post('/webhook', async (req, res) => {
 
     // Extract the message part from the payload
     const message = payload.message;
-
+    console.log('Received message:',message)
     // Extract text up to the 'Annotations' label
     const annotationsLabelIndex = message.indexOf('Annotations:');
     if (annotationsLabelIndex === -1) {
@@ -39,7 +39,7 @@ app.post('/webhook', async (req, res) => {
     }
 
     const extractedMessage = message.substring(0, annotationsLabelIndex).trim();
-    console.log('Extracted Message:', extractedMessage);
+    //console.log('Extracted Message:', extractedMessage);
     
     // Define work item data
     const workItemData = {
