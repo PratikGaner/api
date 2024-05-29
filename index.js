@@ -27,7 +27,7 @@ app.post('/webhook', async (req, res) => {
     if (!payload.title || !payload.message) {
       console.log('Invalid payload:', payload);
       return res.status(400).send('Invalid payload');
-    }
+    } 
 
     // Extract the message part from the payload
     const message = payload.message;
