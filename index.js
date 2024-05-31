@@ -20,7 +20,7 @@ app.post('/webhook', async (req, res) => {
   console.log('POST request received');
   try {
     // Log the incoming request body
-    const payload = req.body;
+    const payload = req.body;  
     console.log('Request Payload:', payload);
 
     // Validate payload
